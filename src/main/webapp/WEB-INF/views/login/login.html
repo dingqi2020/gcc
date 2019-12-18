@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>gcc-oa</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+</head>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript">
+	function doLogin() {
+		$.ajax({
+			type :'post',
+			url : 'checkLogin',
+			dataType :'json',
+			data : {
+				username : $("#username").val(),
+				password : $("#password").val()
+			},
+			success : function(data) {
+				if (data.code == "0") {
+					window.location.href = "index";
+				} else {
+					$("#username").val(null);
+					$("#password").val(null);
+					alert(data.errorInfo);
+				}
+			}
+		});
+	}
+</script>
+<body>
+	<div class="login">
+		<div class="center">
+			<h1>Login</h1>
+			<div class="inputLi">
+				<strong>用户名</strong>
+				<input type="text" name="username" id="username" placeholder="请输入">
+			</div>
+			<div class="inputLi">
+				<strong>密码</strong>
+				<input type="password" name="password" id="password" placeholder="请输入">
+			</div>
+			<div class="inputLi">
+				<button onclick="doLogin()">登录</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
