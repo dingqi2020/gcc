@@ -5,19 +5,22 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gcc.entity.User;
 import com.gcc.service.UserService;
 
 @Controller
 public class UserController {
+
+	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userServivce;
@@ -33,14 +36,16 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> checkLogin(User user,Model model){
 		//调用service方法
-		user = userServivce.checkLogin(user.getUsername());
+		user = userServivce.checkLogin(user.getUsername(), user.getPassword());
 		Map<String, Object> map = new HashMap<>();
 		//若有user则添加到model里并且跳转到成功页面
 		if(user != null){
 			map.put("code", 0);
+			logger.info(user.getUsername() + "成功登录");
 		} else {
 			map.put("code", 1);
 			map.put("errorInfo","用户名户密码错误");
+			logger.error("用户名户密码错误，登录失败");
 		}
 		return map;
 	}
@@ -51,9 +56,22 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/doRegist", method = RequestMethod.POST)
-	public String doRegist(User user, Model model){
-		userServivce.regist(user);
-		return "login/login";
+	@ResponseBody
+	public Map<String, Object> doRegist(User user, Model model){
+		// 确认用户名是否已注册
+		int result = userServivce.checkRegisted(user.getUsername());
+		Map<String, Object> map = new HashMap<>();
+		if (result != 0) {
+			map.put("code", 1);
+			map.put("errorInfo",user.getUsername() + "已被注册，请重新注册");
+			logger.error(user.getUsername() + "已被注册，请重新注册");
+		} else {
+			map.put("code", 0);
+			map.put("info","注册成功");
+			userServivce.regist(user);
+			logger.error(user.getUsername() + "注册成功");
+		}
+		return map;
 	}
 
 	//注销方法

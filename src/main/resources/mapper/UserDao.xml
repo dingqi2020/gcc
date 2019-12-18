@@ -5,12 +5,16 @@
 <mapper namespace="com.gcc.dao.UserDao">
     <!-- 目的：为DAO接口方法提供sql语句配置 -->
     <!-- 查询用户和密码进行登录 -->
-    <select id="findByUsername" resultType="User" parameterType="String">
-        select * from user where username = #{username}
+    <select id="findByUsername" resultType="User">
+        select * from user where username = #{0} and password = #{1}
     </select>
 
     <!--增加用户名和密码进行注册  -->
     <insert id="registerByUsername">
        insert into user (username) values (#{username})
     </insert>
+
+    <select id="countUser" resultType="int" parameterType="String">
+        select count(*) from user where username = #{username}
+    </select>
 </mapper>
