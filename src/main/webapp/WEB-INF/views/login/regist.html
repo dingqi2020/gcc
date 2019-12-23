@@ -15,11 +15,12 @@
 			url : 'doRegist',
 			dataType :'json',
 			data : {
+				userid : $("#userid").val(),
 				username : $("#username").val()
 			},
 			success : function(data) {
 				if (data.code == "1") {
-					$("#username").val(null);
+					$("#userid").val(null);
 					alert(data.errorInfo);
 				} else {
 					alert(data.info);
@@ -33,6 +34,10 @@
 	<div class="login">
 		<div class="center">
 			<h1>Regist</h1>
+			<div class="inputLi">
+				<strong>ID</strong>
+				<input type="text" name="userid" id="userid" placeholder="请输入">
+			</div>
 			<div class="inputLi">
 				<strong>用户名</strong>
 				<input type="text" name="username" id="username" placeholder="请输入">

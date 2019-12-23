@@ -4,16 +4,19 @@ import java.sql.Date;
 
 public class User {
 
-	/** 用户名 */
-	private String username;
+	/** 用户ID */
+	private String userid;
+
+	/** 员工ID */
+	private int employid;
 
 	/** 密码 */
 	private String password;
 
-	/** 用户ID */
-	private int userid;
+	/** 用户名 */
+	private String username;
 
-	/** 密码更新时间 */
+	/** 上次密码更新时间 */
 	private Date updatepwddt;
 
 	/** 上次登录时间 */
@@ -24,32 +27,33 @@ public class User {
 
 	/** 用户状态 */
 	private int status;
+
 	/**
 	 * @return the userid
 	 */
-	public int getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
 	/**
 	 * @param userid the userid to set
 	 */
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 
 	/**
-	 * @return the username
+	 * @return the employid
 	 */
-	public String getUsername() {
-		return username;
+	public int getEmployid() {
+		return employid;
 	}
 
 	/**
-	 * @param username the username to set
+	 * @param employid the employid to set
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmployid(int employid) {
+		this.employid = employid;
 	}
 
 	/**
@@ -64,6 +68,20 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	/**

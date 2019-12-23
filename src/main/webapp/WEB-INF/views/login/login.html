@@ -15,14 +15,14 @@
 			url : 'checkLogin',
 			dataType :'json',
 			data : {
-				username : $("#username").val(),
+				userid : $("#userid").val(),
 				password : $("#password").val()
 			},
 			success : function(data) {
 				if (data.code == "0") {
 					window.location.href = "index";
 				} else {
-					$("#username").val(null);
+					$("#userid").val(null);
 					$("#password").val(null);
 					alert(data.errorInfo);
 				}
@@ -36,7 +36,7 @@
 			<h1>Login</h1>
 			<div class="inputLi">
 				<strong>用户名</strong>
-				<input type="text" name="username" id="username" placeholder="请输入">
+				<input type="text" name="userid" id="userid" placeholder="请输入">
 			</div>
 			<div class="inputLi">
 				<strong>密码</strong>

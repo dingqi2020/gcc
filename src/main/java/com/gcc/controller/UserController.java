@@ -3,6 +3,7 @@ package com.gcc.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -34,13 +35,14 @@ public class UserController {
 	//表单提交过来的路径
 	@RequestMapping(value = "/checkLogin", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> checkLogin(User user,Model model){
+	public Map<String, Object> checkLogin(HttpServletRequest request, User user){
 		//调用service方法
-		user = userServivce.checkLogin(user.getUsername(), user.getPassword());
+		user = userServivce.checkLogin(user.getUserid(), user.getPassword());
 		Map<String, Object> map = new HashMap<>();
-		//若有user则添加到model里并且跳转到成功页面
+		//若有user则添加到session里
 		if(user != null){
 			map.put("code", 0);
+			request.getSession().setAttribute("user", user);
 			logger.info(user.getUsername() + "成功登录");
 		} else {
 			map.put("code", 1);
@@ -59,17 +61,17 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> doRegist(User user, Model model){
 		// 确认用户名是否已注册
-		int result = userServivce.checkRegisted(user.getUsername());
+		int result = userServivce.checkRegisted(user.getUserid());
 		Map<String, Object> map = new HashMap<>();
 		if (result != 0) {
 			map.put("code", 1);
-			map.put("errorInfo",user.getUsername() + "已被注册，请重新注册");
-			logger.error(user.getUsername() + "已被注册，请重新注册");
+			map.put("errorInfo",user.getUserid() + "已被注册，请重新注册");
+			logger.error(user.getUserid() + "已被注册，请重新注册");
 		} else {
 			map.put("code", 0);
 			map.put("info","注册成功");
 			userServivce.regist(user);
-			logger.error(user.getUsername() + "注册成功");
+			logger.error(user.getUserid() + "注册成功");
 		}
 		return map;
 	}

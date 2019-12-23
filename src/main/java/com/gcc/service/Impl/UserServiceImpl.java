@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
 
-	public User checkLogin(String username, String password) {
-		User user = userDao.findByUsername(username, password);
+	public User checkLogin(String userid, String password) {
+		User user = userDao.findByUsername(userid, password);
 		if(user != null){
 			return user;
 		}
@@ -25,11 +25,11 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void regist(User user) {
-		userDao.registerByUsername(user.getUsername());
+		userDao.registerByUsername(user.getUserid(), user.getUsername());
 	}
 
 	@Override
-	public int checkRegisted(String username) {
-		return userDao.countUser(username);
+	public int checkRegisted(String userid) {
+		return userDao.countUser(userid);
 	}
 }

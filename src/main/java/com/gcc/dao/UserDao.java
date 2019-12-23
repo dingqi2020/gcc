@@ -3,9 +3,9 @@ package com.gcc.dao;
 import com.gcc.entity.User;
 
 public interface UserDao {
-	User findByUsername(String username, String password);
+	User findByUsername(String userid, String password);
 
-	void registerByUsername(String username);
+	void registerByUsername(String userid, String username);
 
-	int countUser(String username);
+	int countUser(String userid);
 }
