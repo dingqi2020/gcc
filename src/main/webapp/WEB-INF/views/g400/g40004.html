@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>后台管理系统</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" th:href="@{/js/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/js/bstable/css/bootstrap-table.css}">
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+	<style>
+        .notice_main1{border: none !important;}
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            min-width: 1100px;
+            overflow: auto;
+        }
+
+        #box {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto 0;
+        }
+
+        #tabs ul {
+            height: 31px;
+            border-left: #ccc solid 1px;
+            border-bottom: #ccc solid 1px;
+        }
+
+        #tabs ul li {
+            float: left;
+            border-top: #ccc solid 1px;
+            border-right: #ccc solid 1px;
+        }
+
+        #tabs ul li a {
+            display: block;
+            padding: 0 12px;
+            line-height: 29px;
+            border: white solid 1px;
+            border-bottom: none;
+            background-color: #e0e0e0;
+            color: #271d1e;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /*当一个标题a获得焦点时的样式*/
+        #tabs ul li .current {
+            border-bottom: white solid 1px;
+            background-color: white;
+        }
+
+        #box_main {
+            border: #ccc solid 1px;
+            border-top: none;
+            background-color: #fff;
+            height: 450px;
+        }
+
+        #box_main h3 {
+            line-height: 47px;
+            font-size: 22px;
+            color: #434142;
+            border-bottom: #e2e2e2 dashed 1px;
+            margin-bottom: 10px;
+        }
+
+        /*让一开始，所有的内容面板隐藏*/
+        #box_main > div {
+            /*padding: 9px 20px 17px 20px;*/
+            display: none;
+        }
+
+        /*一开始，第一个内容面板显示*/
+        #box_main #baseinfo {
+            display: block;
+        }
+
+        #box_main > div > div {
+            padding: 5px;
+            border: #dddddd solid 1px;
+            margin-right: 18px;
+            margin-bottom: 33px;
+            float: left;
+        }
+
+        #box_main p {
+            color: #999999;
+            font-size: 12px;
+            line-height: 21px;
+        }
+    </style>
+	<script th:src="@{/js/jquery/jQuery-2.2.0.min.js}"></script>
+	<script th:src="@{/js/bstable/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/bstable/js/bootstrap-table.js}"></script>
+	<script th:src="@{/js/bstable/js/bootstrap-table-zh-CN.min.js}"></script>
+	<script th:src="@{/js/layer_v2.1/layer/layer.js}"></script>
+	<script>
+        $(init);
+        function init(){
+            // 遍历每一个li
+            $("#tabs .title").find("li").each(function(index){
+                $(this).on("click",function(){
+                    $(this).siblings().find("a").removeClass("current");
+                    $(this).find("a").addClass("current");
+                    $("#box_main>div").eq(index).fadeIn().siblings().stop().hide();
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+	<div id="box">
+		<div id="tabs">
+			<ul class="title">
+				<li><a href="javascript:void(0)" class="current">员工基本信息</a></li>
+				<li><a href="javascript:void(0)">员工个人信息</a></li>
+				<li><a href="javascript:void(0)">员工家庭信息</a></li>
+				<li><a href="javascript:void(0)">员工其他信息</a></li>
+			</ul>
+		</div>
+		<div id="box_main">
+			<div id="baseinfo">
+				<div class="notice_main notice_main1">
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>员工姓名：</label>
+							<input type="text" class="find_input">
+							<label>登录ID：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>员工工号：</label>
+							<input type="text" class="find_input">
+							<label>电子邮箱：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>担任职务：</label>
+							<input type="text" class="find_input">
+							<label>所属部门：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>用户状态：</label>
+							<input type="text" class="find_input">
+							<label>上次登陆时间：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="personalinfo">
+				<div class="notice_main notice_main1">
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>员工日文名：</label>
+							<input type="text" class="find_input">
+							<label>性别：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>出生日期：</label>
+							<input type="text" class="find_input">
+							<label>手机号码：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>身份证号码：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="homeinfo">
+				<div class="notice_main notice_main1">
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>党派：</label>
+							<input type="text" class="find_input">
+							<label>籍贯：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>省：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>市：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>区：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>家庭地址：</label>
+							<input type="text" class="find_input">
+							<label>家庭联系电话：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>紧急联系人：</label>
+							<input type="text" class="find_input">
+							<label>紧急联系人电话：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>与紧急联系人关系：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>毕业学校1：</label>
+							<input type="text" class="find_input">
+							<label>毕业时间1：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>专业1：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>毕业学校2：</label>
+							<input type="text" class="find_input">
+							<label>毕业时间2：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>专业2：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="otherinfo">
+				<div class="notice_main notice_main1">
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>入司时间：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>转正时间：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+					<div class="notice_check" style="padding: 16px 15px 8px 100px">
+						<p>
+							<label>产假结束时间：</label>
+							<input type="text" class="find_input">
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
